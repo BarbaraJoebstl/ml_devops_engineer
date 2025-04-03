@@ -1,15 +1,18 @@
 #!/usr/bin/env python
 # -*- coding: UTF-8 -*-
 
-import os
+"""
+Title: Test Churn Library
+Author: Barbara Jöbstl
+Date Created: 2025-04-03
+
+Description:
+Runs tests for the ChurnLibrary class.
+"""
+
 import logging
 from unittest import mock
 from unittest.mock import MagicMock, patch
-import numpy as np
-import sklearn
-from sklearn.impute import SimpleImputer
-from sklearn.linear_model import LogisticRegression
-from sklearn.model_selection import GridSearchCV, train_test_split
 
 from churn_library import ChurnLibrary
 import pytest

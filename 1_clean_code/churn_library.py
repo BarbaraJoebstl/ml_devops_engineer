@@ -2,8 +2,11 @@
 # -*- coding: UTF-8 -*-
 """
 Title: Churn Library
+Author: Barbara Jöbstl
+Date Created: 2025-04-03
+
 Description:
-Downlaods given data, performs EDA, trains a model and calculates the feature importance
+Downloadds given data, performs EDA, trains a model and calculates the feature importance
 """
 
 # import libraries
@@ -20,9 +23,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 
 from sklearn.metrics import RocCurveDisplay
-from sklearn.preprocessing import normalize
 from sklearn.model_selection import train_test_split
-from sklearn.preprocessing import LabelEncoder
 
 from sklearn.linear_model import LogisticRegression
 from sklearn.ensemble import RandomForestClassifier

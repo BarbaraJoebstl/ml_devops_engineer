@@ -1,6 +1,15 @@
 #!/usr/bin/env python
 # -*- coding: UTF-8 -*-
 
+"""
+Title: Test Churn Constants
+Author: Barbara Jöbstl
+Date Created: 2025-04-03
+
+Description:
+Holds the constants that are needed for the Churn Library functionality.
+"""
+
 IMAGES_PATH = "images/"
 MODELS_PATH = "models/"
 LOGS_PATH = "logs/"
