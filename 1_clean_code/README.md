@@ -37,10 +37,11 @@ Install the needed libraries from `requirments_py3.10.txt`
 
 ### Execute the training of the model
 Run `python churn_library.py` this will:
-1.
-2.
-3.
-4.
+1. Run the exploratory data analysis 
+2. Perform the Feature Engineering (including encoding of categorical variables)
+3. Run Model Training
+4. Run the Prediction
+5. Run Model Evaluation
 
 ### Run the tests
 run `pytest churn_script_logging_and_tests.py`

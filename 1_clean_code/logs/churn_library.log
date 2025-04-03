@@ -1,16 +1,16 @@
-2025-04-01 16:42:49,135 - INFO - Starting Churn Library
-2025-04-01 16:42:49,161 - INFO - Starting EDA
-2025-04-01 16:42:49,161 - INFO - Show first rows of data:
-2025-04-01 16:42:49,161 - INFO -    Unnamed: 0  CLIENTNUM     Attrition_Flag  Customer_Age  ... Total_Trans_Ct  Total_Ct_Chng_Q4_Q1 Avg_Utilization_Ratio Churn
-0           0  768805383  Existing Customer            45  ...             42                1.625                 0.061     0
-1           1  818770008  Existing Customer            49  ...             33                3.714                 0.105     0
-2           2  713982108  Existing Customer            51  ...             20                2.333                 0.000     0
-3           3  769911858  Existing Customer            40  ...             20                2.333                 0.760     0
-4           4  709106358  Existing Customer            40  ...             28                2.500                 0.000     0
+2025-04-03 11:28:08,117 - INFO - Starting Churn Library
+2025-04-03 11:28:08,151 - INFO - Starting EDA
+2025-04-03 11:28:08,152 - INFO - Show first rows of data:
+2025-04-03 11:28:08,152 - INFO -    Unnamed: 0  CLIENTNUM     Attrition_Flag  Customer_Age Gender  ...  Total_Trans_Amt Total_Trans_Ct Total_Ct_Chng_Q4_Q1 Avg_Utilization_Ratio Churn
+0           0  768805383  Existing Customer            45      M  ...             1144             42               1.625                 0.061     0
+1           1  818770008  Existing Customer            49      F  ...             1291             33               3.714                 0.105     0
+2           2  713982108  Existing Customer            51      M  ...             1887             20               2.333                 0.000     0
+3           3  769911858  Existing Customer            40      F  ...             1171             20               2.333                 0.760     0
+4           4  709106358  Existing Customer            40      M  ...              816             28               2.500                 0.000     0
 
 [5 rows x 23 columns]
-2025-04-01 16:42:49,178 - INFO - Show nulls:
-2025-04-01 16:42:49,179 - INFO - Unnamed: 0                  0
+2025-04-03 11:28:08,174 - INFO - Show nulls:
+2025-04-03 11:28:08,175 - INFO - Unnamed: 0                  0
 CLIENTNUM                   0
 Attrition_Flag              0
 Customer_Age                0
@@ -34,10 +34,10 @@ Total_Ct_Chng_Q4_Q1         0
 Avg_Utilization_Ratio       0
 Churn                       0
 dtype: int64
-2025-04-01 16:42:49,180 - INFO - DataFrame shape:
-2025-04-01 16:42:49,180 - INFO - (10127, 23)
-2025-04-01 16:42:49,180 - INFO - Describe incoming data: 
-2025-04-01 16:42:49,190 - INFO -          Unnamed: 0     CLIENTNUM  Customer_Age  Dependent_count  ...  Total_Trans_Ct  Total_Ct_Chng_Q4_Q1  Avg_Utilization_Ratio         Churn
+2025-04-03 11:28:08,176 - INFO - DataFrame shape:
+2025-04-03 11:28:08,176 - INFO - (10127, 23)
+2025-04-03 11:28:08,176 - INFO - Describe incoming data: 
+2025-04-03 11:28:08,186 - INFO -          Unnamed: 0     CLIENTNUM  Customer_Age  Dependent_count  ...  Total_Trans_Ct  Total_Ct_Chng_Q4_Q1  Avg_Utilization_Ratio         Churn
 count  10127.000000  1.012700e+04  10127.000000     10127.000000  ...    10127.000000         10127.000000           10127.000000  10127.000000
 mean    5063.000000  7.391776e+08     46.325960         2.346203  ...       64.858695             0.712222               0.274894      0.160660
 std     2923.557422  3.690378e+07      8.016814         1.298908  ...       23.472570             0.238086               0.275691      0.367235
@@ -48,29 +48,29 @@ min        0.000000  7.080821e+08     26.000000         0.000000  ...       10.0
 max    10126.000000  8.283431e+08     73.000000         5.000000  ...      139.000000             3.714000               0.999000      1.000000
 
 [8 rows x 17 columns]
-2025-04-01 16:42:49,201 - INFO - Done printing stats of current DF.
-2025-04-01 16:42:49,201 - INFO - Storing hist plot - Churn.
-2025-04-01 16:42:49,429 - INFO - Storing hist plot - Customer_Age.
-2025-04-01 16:42:49,500 - INFO - Storing bar plot - Marital_Status.
-2025-04-01 16:42:49,570 - INFO - Storing sns_hist plot - Total_Trans_Ct.
-2025-04-01 16:42:49,678 - INFO - Storing heatmap plot - None.
-2025-04-01 16:42:49,857 - INFO - Starting Feature Engineering
-2025-04-01 16:42:49,874 - INFO - Calling train_test_split
-2025-04-01 16:42:49,875 - INFO - Starting Model Training
-2025-04-01 16:44:01,254 - INFO - random forest results
-2025-04-01 16:44:01,254 - INFO - test results
-2025-04-01 16:44:01,258 - INFO - 
+2025-04-03 11:28:08,196 - INFO - Done printing stats of current DF.
+2025-04-03 11:28:08,196 - INFO - Storing hist plot - Churn.
+2025-04-03 11:28:08,688 - INFO - Storing hist plot - Customer_Age.
+2025-04-03 11:28:08,768 - INFO - Storing bar plot - Marital_Status.
+2025-04-03 11:28:08,843 - INFO - Storing sns_hist plot - Total_Trans_Ct.
+2025-04-03 11:28:08,958 - INFO - Storing heatmap plot - None.
+2025-04-03 11:28:09,144 - INFO - Starting Feature Engineering
+2025-04-03 11:28:09,150 - INFO - Calling train_test_split
+2025-04-03 11:28:09,152 - INFO - Starting Model Training
+2025-04-03 11:29:23,074 - INFO - random forest results
+2025-04-03 11:29:23,074 - INFO - test results
+2025-04-03 11:29:23,077 - INFO - 
               precision    recall  f1-score   support
 
-           0       0.97      0.99      0.98      2543
-           1       0.93      0.83      0.88       496
+           0       0.96      0.99      0.98      2543
+           1       0.94      0.81      0.87       496
 
     accuracy                           0.96      3039
-   macro avg       0.95      0.91      0.93      3039
+   macro avg       0.95      0.90      0.92      3039
 weighted avg       0.96      0.96      0.96      3039
 
-2025-04-01 16:44:01,258 - INFO - train results
-2025-04-01 16:44:01,261 - INFO - 
+2025-04-03 11:29:23,078 - INFO - train results
+2025-04-03 11:29:23,081 - INFO - 
               precision    recall  f1-score   support
 
            0       1.00      1.00      1.00      5957
@@ -80,48 +80,27 @@ weighted avg       0.96      0.96      0.96      3039
    macro avg       1.00      1.00      1.00      7088
 weighted avg       1.00      1.00      1.00      7088
 
-2025-04-01 16:44:01,261 - INFO - --------------------------
-2025-04-01 16:44:01,261 - INFO - logistic regression results
-2025-04-01 16:44:01,261 - INFO - test results
-2025-04-01 16:44:01,264 - INFO - 
+2025-04-03 11:29:23,081 - INFO - --------------------------
+2025-04-03 11:29:23,081 - INFO - logistic regression results
+2025-04-03 11:29:23,081 - INFO - test results
+2025-04-03 11:29:23,084 - INFO - 
               precision    recall  f1-score   support
 
            0       0.90      0.97      0.93      2543
            1       0.73      0.47      0.57       496
 
-    accuracy                           0.88      3039
+    accuracy                           0.89      3039
    macro avg       0.82      0.72      0.75      3039
-weighted avg       0.87      0.88      0.87      3039
+weighted avg       0.88      0.89      0.88      3039
 
-2025-04-01 16:44:01,264 - INFO - train results
-2025-04-01 16:44:01,268 - INFO - 
+2025-04-03 11:29:23,084 - INFO - train results
+2025-04-03 11:29:23,088 - INFO - 
               precision    recall  f1-score   support
 
-           0       0.92      0.97      0.94      5957
-           1       0.75      0.53      0.62      1131
+           0       0.92      0.96      0.94      5957
+           1       0.74      0.54      0.63      1131
 
     accuracy                           0.90      7088
    macro avg       0.83      0.75      0.78      7088
 weighted avg       0.89      0.90      0.89      7088
 
-2025-04-01 16:45:10,686 - ERROR - An error occurred: shape mismatch: objects cannot be broadcast to a single shape.  Mismatch is between arg 0 with shape (19,) and arg 1 with shape (14,).
-Traceback (most recent call last):
-  File "/Users/joebsbar/Documents/git_barbara/ml_devops/1_clean_code/churn_library.py", line 381, in <module>
-    ChurnLibrary().run()
-  File "/Users/joebsbar/Documents/git_barbara/ml_devops/1_clean_code/churn_library.py", line 64, in run
-    self.train_models(X_train, X_test, y_train, y_test)
-  File "/Users/joebsbar/Documents/git_barbara/ml_devops/1_clean_code/churn_library.py", line 373, in train_models
-    self.feature_importance_plot(cv_rfc, self.X, consts.IMAGES_PATH)
-  File "/Users/joebsbar/Documents/git_barbara/ml_devops/1_clean_code/churn_library.py", line 313, in feature_importance_plot
-    plt.bar(range(X_data.shape[1]), importances[indices])
-  File "/opt/homebrew/anaconda3/envs/ml_devops/lib/python3.10/site-packages/matplotlib/pyplot.py", line 2981, in bar
-    return gca().bar(
-  File "/opt/homebrew/anaconda3/envs/ml_devops/lib/python3.10/site-packages/matplotlib/__init__.py", line 1521, in inner
-    return func(
-  File "/opt/homebrew/anaconda3/envs/ml_devops/lib/python3.10/site-packages/matplotlib/axes/_axes.py", line 2572, in bar
-    x, height, width, y, linewidth, hatch = np.broadcast_arrays(
-  File "/opt/homebrew/anaconda3/envs/ml_devops/lib/python3.10/site-packages/numpy/lib/stride_tricks.py", line 540, in broadcast_arrays
-    shape = _broadcast_shape(*args)
-  File "/opt/homebrew/anaconda3/envs/ml_devops/lib/python3.10/site-packages/numpy/lib/stride_tricks.py", line 422, in _broadcast_shape
-    b = np.broadcast(*args[:32])
-ValueError: shape mismatch: objects cannot be broadcast to a single shape.  Mismatch is between arg 0 with shape (19,) and arg 1 with shape (14,).

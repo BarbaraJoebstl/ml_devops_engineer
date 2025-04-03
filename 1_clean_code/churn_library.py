@@ -181,7 +181,7 @@ class ChurnLibrary(ABC):
         self._save_eda_plot(df, "sns_hist", "Total_Trans_Ct")
         self._save_eda_plot(df, "heatmap")
 
-    def encoder_helper(self, df, category_lst, response=None):
+    def encoder_helper(self, df, category_lst, response="Churn"):
         """
         Helper function to turn each categorical column into a new column with
         propotion of churn for each category - associated with cell 15 from the notebook
@@ -197,10 +197,8 @@ class ChurnLibrary(ABC):
 
         try:
             for category in category_lst:
-                df[category] = pd.to_numeric(df[category], errors="coerce")
-                category_groups = df.groupby(category)["Churn"].mean()
+                category_groups = df.groupby(category)[response].mean()
                 df[f"{category}_Churn"] = df[category].map(category_groups)
-
             return df
         except ValueError as e:
             logger.error(f"Unable to add encoded groups: {e}")

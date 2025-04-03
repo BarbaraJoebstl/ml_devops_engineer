@@ -1,3 +1,6 @@
+#!/usr/bin/env python
+# -*- coding: UTF-8 -*-
+
 IMAGES_PATH = "images/"
 MODELS_PATH = "models/"
 LOGS_PATH = "logs/"
