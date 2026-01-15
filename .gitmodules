@@ -1,0 +1,6 @@
+[submodule "ml_workflow"]
+    path = ML_DEVOPS/2_reproducible_ml_workflow/
+    url = git@github.com:BarbaraJoebstl/ml_workflow.git
+[submodule "ML_DEVOPS/2_reproducible_ml_workflow"]
+	path = ML_DEVOPS/2_reproducible_ml_workflow
+	url = git@github.com:BarbaraJoebstl/ml_workflow.git
