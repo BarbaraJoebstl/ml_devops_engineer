@@ -2,3 +2,10 @@
 __pycache__/
 .vs_code/
 ../.DS_Store
+
+# ignore local outputs from runs
+debug*
+*.log
+mlruns/
+mlflow-artifacts/
+wandb/

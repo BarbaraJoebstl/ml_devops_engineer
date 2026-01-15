@@ -85,3 +85,20 @@ An instance of the Inference Pipeline containing a trained model.
 
 ### Inference Pipeline: 
 A pipeline constituted of two steps: the pre-processing step and the model. The pre-processing step can be a pipeline on its own, and it manipulates the data and prepares them for the model. The inference pipeline should contain all the pre-processing that needs to happen during model development as well as during production. When the inference pipeline is trained (i.e., it contains a trained model) it can be exported to disk. The export product is called an Inference Artifact.
+
+
+## ML Scoring and Tracking
+Ordinary least squares regression: the oldest ML method, invented in 1805
+Receiver Operating Characteristic: a scoring method for classification models invented in 1941
+API's: interfaces with computer programs, first described in 1951
+Kaggle: a forum for machine learning competitions, launched in 2010
+External stakeholders: customers and company leaders who aren't closely involved with your project, but are interested in making sure it's performing well
+Data scientists: professionals who work with data, and train models
+ML engineers: professionals who optimize, deploy, and monitor ML models
+Data engineers: professionals who work with data ingestion and administration
+
+history of regression:
+https://www.tandfonline.com/doi/full/10.1080/10691898.2001.11910537#d1e90
+
+model scoring
+https://www.sciencedirect.com/science/article/abs/pii/B9780080970868430916?via%3Dihub
