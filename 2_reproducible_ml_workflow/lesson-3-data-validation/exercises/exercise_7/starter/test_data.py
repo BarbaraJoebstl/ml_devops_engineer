@@ -9,7 +9,6 @@ run = wandb.init(project="exercise_7", job_type="data_tests")
 
 @pytest.fixture(scope="session")
 def data():
-
     local_path = run.use_artifact("exercise_5/preprocessed_data.csv:latest").file()
     df = pd.read_csv(local_path, low_memory=False)
 
@@ -17,7 +16,6 @@ def data():
 
 
 def test_column_presence_and_type(data):
-
     # A dictionary with the column names as key and a function that verifies
     # the expected dtype for that column. We do not check strict dtypes (like
     # np.int32 vs np.int64) but general dtypes (like is_integer_dtype)
@@ -35,7 +33,7 @@ def test_column_presence_and_type(data):
         "tempo": pd.api.types.is_float_dtype,
         "duration_ms": pd.api.types.is_integer_dtype,  # This is integer, not float as one might expect
         "text_feature": pd.api.types.is_string_dtype,
-        "genre": pd.api.types.is_string_dtype
+        "genre": pd.api.types.is_string_dtype,
     }
 
     # Check column presence
@@ -43,12 +41,10 @@ def test_column_presence_and_type(data):
 
     # Check that the columns are of the right dtype
     for col_name, format_verification_funct in required_columns.items():
-
         assert format_verification_funct(data[col_name]), f"Column {col_name} failed test {format_verification_funct}"
 
 
 def test_class_names(data):
-
     known_classes = [
         "Dark Trap",
         "Underground Rap",
@@ -75,7 +71,6 @@ def test_class_names(data):
 
 
 def test_column_ranges(data):
-
     ranges = {
         "time_signature": (1, 5),
         "key": (0, 11),
@@ -94,5 +89,7 @@ def test_column_ranges(data):
     for col_name, (minimum, maximum) in ranges.items():
         # YOUR CODE HERE: check that the values in the column col_name are within the expected range
         # HINT: look at the .between method of pandas, and then use .all() like in the previous
-        # test
-        pass
+        assert data[col_name].dropna().between(minimum, maximum).all(), (
+            f"Column {col_name} failed the test. Should be between {minimum} and {maximum}, "
+            f"instead min={data[col_name].min()} and max={data[col_name].max()}"
+        )

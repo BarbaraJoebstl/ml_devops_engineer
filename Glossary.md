@@ -9,11 +9,14 @@ An orchestrated, tracked and versioned workflow that can be reproduced and inspe
 ### Artifact
 The product of a pipeline component. It can be a file (an image, a model export, model weights, a text file...) or a directory.
 
-### Component One step in a Machine Learning Pipeline. In MLflow, a component is characterized by an environment file (conda.yml if you are using conda), an entry point definition file (MLproject) and one or more scripts or commands to be executed and their supporting code.
+### Component 
+One step in a Machine Learning Pipeline. In MLflow, a component is characterized by an environment file (conda.yml if you are using conda), an entry point definition file (MLproject) and one or more scripts or commands to be executed and their supporting code.
 
-### Container A technology to package together the entire runtime of a software, i.e., the code itself and all its dependencies and data files. Containers can be spun up quickly, and they run identically across different environments.
+### Container
+ A technology to package together the entire runtime of a software, i.e., the code itself and all its dependencies and data files. Containers can be spun up quickly, and they run identically across different environments.
 
-### Data Segregation The process of splitting the data, for example into train and test sets.
+### Data Segregation
+ The process of splitting the data, for example into train and test sets.
 
 ### Environment (runtime)
 The environment where a software runs. In mlflow it is described by the conda.yml file (or the equivalent Dockerfile if using Docker).

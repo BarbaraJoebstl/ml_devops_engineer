@@ -9,3 +9,6 @@ debug*
 mlruns/
 mlflow-artifacts/
 wandb/
+.ipynb_checkpoints
+artifacts
+.pytest_cache

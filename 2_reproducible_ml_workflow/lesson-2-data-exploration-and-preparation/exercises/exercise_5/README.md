@@ -29,11 +29,12 @@ Hints:
    
 3. You will need the following dependencies:
    ```yaml
-   - pandas=1.2.3
-   - pip=20.3.3
-   - pyarrow=2.0
+   - pandas=2.3.2
+   - pip=24.3.1
+   - pyarrow=21.0.0
+   - mlflow=3.2.0
    - pip:
-       - wandb==0.10.21
+       - wandb==0.21.3
    ```
 3. You do NOT need to generate the profiles from pandas-profiling (and you also do not need
    pandas-profiling as a dependency in ``conda.yml``)
@@ -47,3 +48,9 @@ Hints:
    If it doesn't, check your exercise and fix it. Do not move on unless the command executes
    successfully, otherwise you won't be able to do some of the next exercises.
    
+
+
+command to run 
+mlflow run . -P input_artifact="exercise_4/genres_mod.parquet:latest" -P artifact_name="preprocessed_data.csv" -P artifact_type="clean_data" -P artifact_description="Data after preprocessing"
+
+if exercise 4 was skipped, prep and store the raw data first
