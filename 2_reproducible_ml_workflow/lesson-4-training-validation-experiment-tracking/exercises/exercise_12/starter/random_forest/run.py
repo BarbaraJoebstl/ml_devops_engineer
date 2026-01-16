@@ -25,7 +25,6 @@ logger = logging.getLogger()
 
 
 def go(args):
-
     run = wandb.init(job_type="train")
 
     logger.info("Downloading and reading test artifact")
@@ -38,9 +37,7 @@ def go(args):
     y = X.pop("genre")
 
     logger.info("Splitting train/val")
-    X_train, X_val, y_train, y_val = train_test_split(
-        X, y, test_size=0.3, stratify=y, random_state=42
-    )
+    X_train, X_val, y_train, y_val = train_test_split(X, y, test_size=0.3, stratify=y, random_state=42)
 
     logger.info("Setting up pipeline")
 
@@ -60,7 +57,6 @@ def go(args):
 
     # Export if required
     if args.export_artifact != "null":
-
         export_model(run, pipe, X_val, pred, args.export_artifact)
 
     # Some useful plots
@@ -70,17 +66,9 @@ def go(args):
 
     y_pred = pipe.predict(X_val)
 
-    cm = confusion_matrix(
-                y_true=y_val,
-                y_pred=y_pred,
-                labels=pipe["classifier"].classes_,
-                normalize="true"
-            )
+    cm = confusion_matrix(y_true=y_val, y_pred=y_pred, labels=pipe["classifier"].classes_, normalize="true")
 
-    disp  = ConfusionMatrixDisplay(
-                    confusion_matrix=cm,
-                    display_labels=pipe["classifier"].classes_
-                )
+    disp = ConfusionMatrixDisplay(confusion_matrix=cm, display_labels=pipe["classifier"].classes_)
 
     disp.plot(
         ax=sub_cm,
@@ -99,24 +87,28 @@ def go(args):
 
 
 def export_model(run, pipe, X_val, val_pred, export_artifact):
-
     # Infer the signature of the model
-    signature = infer_signature(X_val, val_pred)
+    signature = infer_signature(X_val.to_numpy(), val_pred)
 
     with tempfile.TemporaryDirectory() as temp_dir:
-
         export_path = os.path.join(temp_dir, "model_export")
 
-        #### YOUR CODE HERE
-        # Save the pipeline in the export_path directory using mlflow.sklearn.save_model
-        # function. Provide the signature computed above ("signature") as well as a few
-        # examples (input_example=X_val.iloc[:2]), and use the CLOUDPICKLE serialization
-        # format (mlflow.sklearn.SERIALIZATION_FORMAT_CLOUDPICKLE)
+        mlflow.sklearn.save_model(
+            pipe,
+            export_path,
+            serialization_format=mlflow.sklearn.SERIALIZATION_FORMAT_CLOUDPICKLE,
+            signature=signature,
+            input_example=X_val.iloc[:2],
+        )
 
-        # Then upload the temp_dir directory as an artifact:
-        # 1. create a wandb.Artifact instance called "artifact"
-        # 2. add the temp directory using .add_dir
-        # 3. log the artifact to the run
+        artifact = wandb.Artifact(
+            export_artifact,
+            type="model_export",
+            description="Random Forest pipeline export",
+        )
+        artifact.add_dir(export_path)
+
+        run.log_artifact(artifact)
 
         # Make sure the artifact is uploaded before the temp dir
         # gets deleted
@@ -124,29 +116,25 @@ def export_model(run, pipe, X_val, val_pred, export_artifact):
 
 
 def plot_feature_importance(pipe):
-
     # We collect the feature importance for all non-nlp features first
-    feat_names = np.array(
-        pipe["preprocessor"].transformers[0][-1]
-        + pipe["preprocessor"].transformers[1][-1]
-    )
+    feat_names = np.array(pipe["preprocessor"].transformers[0][-1] + pipe["preprocessor"].transformers[1][-1])
     feat_imp = pipe["classifier"].feature_importances_[: len(feat_names)]
     # For the NLP feature we sum across all the TF-IDF dimensions into a global
     # NLP importance
     nlp_importance = sum(pipe["classifier"].feature_importances_[len(feat_names) :])
-    feat_imp = np.append(feat_imp, nlp_importance)
-    feat_names = np.append(feat_names, "title + song_name")
+    feat_imp = np.concatenate([feat_imp, [nlp_importance]])
+    feat_names = np.concatenate([feat_names, ["title + song_name"]])
     fig_feat_imp, sub_feat_imp = plt.subplots(figsize=(10, 10))
     idx = np.argsort(feat_imp)[::-1]
-    sub_feat_imp.bar(range(feat_imp.shape[0]), feat_imp[idx], color="r", align="center")
-    _ = sub_feat_imp.set_xticks(range(feat_imp.shape[0]))
-    _ = sub_feat_imp.set_xticklabels(feat_names[idx], rotation=90)
-    fig_feat_imp.tight_layout()
+    x = np.arange(feat_imp.shape[0])
+    sub_feat_imp.bar(x, feat_imp[idx], color="tab:red", align="center")
+    sub_feat_imp.set_xticks(x)
+    sub_feat_imp.set_xticklabels(feat_names[idx], rotation=90, ha="right")
+    fig_feat_imp.tight_layout(pad=1.1)
     return fig_feat_imp
 
 
 def get_training_inference_pipeline(args):
-
     # Get the configuration for the pipeline
     with open(args.model_config) as fp:
         model_config = yaml.safe_load(fp)
@@ -160,14 +148,10 @@ def get_training_inference_pipeline(args):
     # - one for textual ("nlp") features
     # Categorical preprocessing pipeline
     categorical_features = sorted(model_config["features"]["categorical"])
-    categorical_transformer = make_pipeline(
-        SimpleImputer(strategy="constant", fill_value=0), OrdinalEncoder()
-    )
+    categorical_transformer = make_pipeline(SimpleImputer(strategy="constant", fill_value=0), OrdinalEncoder())
     # Numerical preprocessing pipeline
     numeric_features = sorted(model_config["features"]["numerical"])
-    numeric_transformer = make_pipeline(
-        SimpleImputer(strategy="median"), StandardScaler()
-    )
+    numeric_transformer = make_pipeline(SimpleImputer(strategy="median"), StandardScaler())
     # Textual ("nlp") preprocessing pipeline
     nlp_features = sorted(model_config["features"]["nlp"])
     # This trick is needed because SimpleImputer wants a 2d input, but
@@ -176,9 +160,7 @@ def get_training_inference_pipeline(args):
     nlp_transformer = make_pipeline(
         SimpleImputer(strategy="constant", fill_value=""),
         reshape_to_1d,
-        TfidfVectorizer(
-            binary=True, max_features=model_config["tfidf"]["max_features"]
-        ),
+        TfidfVectorizer(binary=True, max_features=model_config["tfidf"]["max_features"]),
     )
     # Put the 3 tracks together into one pipeline using the ColumnTransformer
     # This also drops the columns that we are not explicitly transforming

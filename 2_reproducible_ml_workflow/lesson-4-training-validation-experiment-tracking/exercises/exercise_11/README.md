@@ -25,6 +25,8 @@ parameter.
 
 Let's start with a simple list and try the values 1, 5 and 10
 
+``mlflow run . -P hydra_options="-m random_forest_pipeline.random_forest.max_depth=1,5,10"``
+
 > **NOTE**: remember to add the ``-m`` option at the beginning, otherwise the sweep will not
 > work.
 
@@ -34,6 +36,8 @@ Now let's do something more advanced, and use the ``range`` operator of Hydra. R
 
 > **NOTE**: do not put any space within the range specification. So ``range(1,10,2)`` works, but
 > ``range(1, 10, 2)`` does not!
+
+``mlflow run . -P hydra_options="-m random_forest_pipeline.random_forest.max_depth = range=(1,10,2)"``
 
 ## Experiment 4: sweep on multiple parameters
 Now let's do a proper sweep and optimize multiple parameters. We can use a range operator on 
@@ -45,6 +49,10 @@ in parallel on your machine. Just add ``hydra/launcher=joblib`` to the ``hydra_o
 
 > **NOTE**: in order to use the joblib launcher you have to install hydra-joblib-launcher. Indeed, it is
 > in our conda.yml file (among the pip dependencies)
+
+
+``mlflow run  -P hydra_options="-m random_forest_pipeline.random_forest.max_depth=range(10,50,3) random_forest_pipeline.tfidf.max_features=range(50,200,50) hydra/launcher=joblib"``
+
 
 Despite this being around 80 jobs, it should only take a few minutes to complete (depending on 
 the speed of your computer and your internet, between 5 and 10 minutes).

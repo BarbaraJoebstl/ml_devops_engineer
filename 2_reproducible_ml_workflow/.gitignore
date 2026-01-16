@@ -12,3 +12,6 @@ wandb/
 .ipynb_checkpoints
 artifacts
 .pytest_cache
+hydra.yaml
+multirun/
+outputs/

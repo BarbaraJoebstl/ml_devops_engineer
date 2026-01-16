@@ -24,7 +24,6 @@ logger = logging.getLogger()
 
 
 def go(args):
-
     run = wandb.init(job_type="train")
 
     logger.info("Downloading and reading test artifact")
@@ -37,9 +36,7 @@ def go(args):
     y = X.pop("genre")
 
     logger.info("Splitting train/val")
-    X_train, X_val, y_train, y_val = train_test_split(
-        X, y, test_size=0.3, stratify=y, random_state=42
-    )
+    X_train, X_val, y_train, y_val = train_test_split(X, y, test_size=0.3, stratify=y, random_state=42)
 
     logger.info("Setting up pipeline")
 
@@ -49,17 +46,12 @@ def go(args):
     pipe.fit(X_train, y_train)
 
     logger.info("Scoring")
-    score = roc_auc_score(
-        y_val, pipe.predict_proba(X_val), average="macro", multi_class="ovo"
-    )
+    score = roc_auc_score(y_val, pipe.predict_proba(X_val), average="macro", multi_class="ovo")
 
     run.summary["AUC"] = score
 
     # We collect the feature importance for all non-nlp features first
-    feat_names = np.array(
-        pipe["preprocessor"].transformers[0][-1]
-        + pipe["preprocessor"].transformers[1][-1]
-    )
+    feat_names = np.array(pipe["preprocessor"].transformers[0][-1] + pipe["preprocessor"].transformers[1][-1])
     feat_imp = pipe["classifier"].feature_importances_[: len(feat_names)]
 
     # For the NLP feature we sum across all the TF-IDF dimensions into a global
@@ -81,17 +73,9 @@ def go(args):
 
     y_pred = pipe.predict(X_val)
 
-    cm = confusion_matrix(
-                y_true=y_val,
-                y_pred=y_pred,
-                labels=pipe["classifier"].classes_,
-                normalize="true"
-            )
+    cm = confusion_matrix(y_true=y_val, y_pred=y_pred, labels=pipe["classifier"].classes_, normalize="true")
 
-    disp  = ConfusionMatrixDisplay(
-                    confusion_matrix=cm,
-                    display_labels=pipe["classifier"].classes_
-                )
+    disp = ConfusionMatrixDisplay(confusion_matrix=cm, display_labels=pipe["classifier"].classes_)
 
     disp.plot(
         ax=sub_cm,
@@ -110,7 +94,6 @@ def go(args):
 
 
 def get_training_inference_pipeline(args):
-
     # Get the configuration for the pipeline
     with open(args.model_config) as fp:
         model_config = yaml.safe_load(fp)
@@ -124,14 +107,10 @@ def get_training_inference_pipeline(args):
     # - one for textual ("nlp") features
     # Categorical preprocessing pipeline
     categorical_features = sorted(model_config["features"]["categorical"])
-    categorical_transformer = make_pipeline(
-        SimpleImputer(strategy="constant", fill_value=0), OrdinalEncoder()
-    )
+    categorical_transformer = make_pipeline(SimpleImputer(strategy="constant", fill_value=0), OrdinalEncoder())
     # Numerical preprocessing pipeline
     numeric_features = sorted(model_config["features"]["numerical"])
-    numeric_transformer = make_pipeline(
-        SimpleImputer(strategy="median"), StandardScaler()
-    )
+    numeric_transformer = make_pipeline(SimpleImputer(strategy="median"), StandardScaler())
     # Textual ("nlp") preprocessing pipeline
     nlp_features = sorted(model_config["features"]["nlp"])
     # This trick is needed because SimpleImputer wants a 2d input, but

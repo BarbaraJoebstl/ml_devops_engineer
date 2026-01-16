@@ -7,9 +7,8 @@ from omegaconf import DictConfig, OmegaConf
 
 
 # This automatically reads in the configuration
-@hydra.main(config_path='.', config_name='config')
+@hydra.main(config_path=".", config_name="config")
 def go(config: DictConfig):
-
     # Setup the wandb experiment. All runs will be grouped under this name
     os.environ["WANDB_PROJECT"] = config["main"]["project_name"]
     os.environ["WANDB_RUN_GROUP"] = config["main"]["experiment_name"]
@@ -29,7 +28,7 @@ def go(config: DictConfig):
         parameters={
             "train_data": config["data"]["train_data"],
             "model_config": model_config,
-            "export_artifact": config["random_forest_pipeline"]["export_artifact"]
+            "export_artifact": config["random_forest_pipeline"]["export_artifact"],
         },
     )
 
