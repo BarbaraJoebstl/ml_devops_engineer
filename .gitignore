@@ -9,3 +9,4 @@ debug*
 mlruns/
 mlflow-artifacts/
 wandb/
+rf_config.json
