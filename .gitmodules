@@ -1,3 +1,6 @@
 [submodule "ML_DEVOPS/2_reproducible_ml_workflow"]
 	path = ML_DEVOPS/2_reproducible_ml_workflow
 	url = git@github.com:BarbaraJoebstl/ml_workflow.git
+[submodule "assignement_ml_pipeline"]
+	path = assignement_ml_pipeline
+	url = https://github.com/BarbaraJoebstl/build-ml-pipeline-for-short-term-rental-prices.git

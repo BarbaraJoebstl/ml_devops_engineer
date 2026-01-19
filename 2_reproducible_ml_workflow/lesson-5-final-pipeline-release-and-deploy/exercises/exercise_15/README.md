@@ -18,3 +18,7 @@ In this exercise you will release your final pipeline as a versioned code artifa
    ```
 
    > NOTE: anyone using the pipeline need to be logged in to ``wandb`` (``wandb login``)
+
+> mlflow run https://github.com/my_repo/my_repo_name.git \ 
+             -v 1.0.0 \
+             -P hydra_options="main.project_name=remote_execution"
